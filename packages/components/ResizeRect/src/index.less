@@ -1,0 +1,24 @@
+@import url('../../../style/index.less');
+
+.resize-rect-container {
+  z-index: @zIndex - 100;
+}
+
+.resize-rect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+
+  border: 2px dashed #326bfb;
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}

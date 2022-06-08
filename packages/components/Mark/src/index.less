@@ -1,0 +1,87 @@
+@import url('../../../style/index.less');
+
+@localZIndex: 100000;
+
+.mark-box {
+  z-index: @zIndex - 10;
+}
+
+.mark-box__selected {
+  z-index: @zIndex + 10;
+
+  .mark-point__icon {
+    transform: scale(1.2);
+  }
+}
+
+.mark-point {
+  &__icon {
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+
+    color: #fff;
+
+    line-height: 26px;
+    text-align: center;
+
+    background: #326bfb;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    box-shadow: 0 6px 16px rgba(50, 107, 251, 0.25);
+    cursor: move;
+
+    transition: all cubic-bezier(0.075, 0.82, 0.165, 1) 0.2s;
+
+    user-select: none;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &__comment {
+    margin-left: 7px;
+  }
+}
+
+.mark-point-not-drag {
+  .mark-point__icon {
+    cursor: pointer;
+  }
+}
+
+.mark-rect {
+  // 强制修改内部属性
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  z-index: @localZIndex + 1;
+
+  margin-right: 7px;
+}
+
+.mark-box-status__RESOLVED {
+  .mark-point__icon {
+    background: @resolvedColor !important;
+  }
+}
+
+.mark-box-status__UNRESOLVED {
+  .mark-point__icon {
+    background: @unresolvedColor !important;
+  }
+}
+
+.mark-box-status__VERIFIED {
+  .mark-point__icon {
+    background: @verifiedColor !important;
+  }
+}
+
+.mark-box-status__CLOSED {
+  .mark-point__icon {
+    background: @closedColor !important;
+  }
+}

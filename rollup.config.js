@@ -20,7 +20,7 @@ const hooksEntry = hooksName.map((name) => name.match(/\.(ts|tsx)$/) ? `${hooksD
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const globals = { react: 'React', 'react-dom': 'ReactDOM', antd: 'antd', ahooks: 'ahooks' };
-const externalPkg = ['react', 'react-dom', 'antd', 'ahooks'];
+const externalPkg = ['react', 'react-dom', 'antd', 'ahooks', 're-resizable', 'dayjs', 'classnames', '@ant-design', 'rc-util'];
 BABEL_ENV !== 'umd' && externalPkg.push('@babel/runtime');
 const external = id => externalPkg.some(e => id.indexOf(e) === 0);
 

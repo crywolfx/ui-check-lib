@@ -1,0 +1,39 @@
+@import url('../../../style/index.less');
+
+.mission-status {
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 12px;
+
+  .ant-select-selector {
+    border-radius: 4px !important;
+  }
+}
+
+.mission-status-RESOLVED {
+  .ant-select-selector,
+  .ant-select-arrow {
+    color: @resolvedColor;
+
+    border-color: @resolvedColor !important;
+  }
+}
+
+.mission-status-UNRESOLVED {
+  .ant-select-selector,
+  .ant-select-arrow {
+    color: @unresolvedColor;
+
+    border-color: @unresolvedColor !important;
+  }
+}
+
+.mission-status-VERIFIED {
+  .ant-select-selector,
+  .ant-select-arrow {
+    color: @verifiedColor;
+
+    border-color: @verifiedColor !important;
+  }
+}

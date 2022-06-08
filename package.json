@@ -76,6 +76,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.3",
     "ahooks": "^3.4.1",
-    "antd": "^4.21.0"
+    "antd": "^4.21.0",
+    "re-resizable": "^6.9.9"
   }
 }
