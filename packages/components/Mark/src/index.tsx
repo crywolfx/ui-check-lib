@@ -186,7 +186,7 @@ export default function Mark(props: MarkType) {
 
   return (
     <Drag
-      className={`${isSelected ? 'mark-box__selected' : 'mark-box'} mark-box-status__${
+      className={`mark ${isSelected ? 'mark-box__selected' : 'mark-box'} mark-box-status__${
         MissionStatus[status!] || 'create'
       }`}
       dragMoveHandler={`.mark-point__drag`}

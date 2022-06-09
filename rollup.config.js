@@ -18,6 +18,10 @@ const hooksDir = 'packages/hooks';
 const hooksName = fs.readdirSync(path.resolve(hooksDir));
 const hooksEntry = hooksName.map((name) => name.match(/\.(ts|tsx)$/) ? `${hooksDir}/${name}` : `${hooksDir}/${name}/index.ts`);
 
+const utilsDir = 'packages/utils';
+const utilsName = fs.readdirSync(path.resolve(utilsDir));
+const utilsEntry = utilsName.map((name) => name.match(/\.(ts|tsx)$/) ? `${utilsDir}/${name}` : `${utilsDir}/${name}/index.ts`);
+
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const globals = { react: 'React', 'react-dom': 'ReactDOM', antd: 'antd', ahooks: 'ahooks' };
 const externalPkg = ['react', 'react-dom', 'antd', 'ahooks', 're-resizable', 'dayjs', 'classnames', '@ant-design', 'rc-util'];
@@ -107,7 +111,7 @@ export default () => {
       }];
     case 'esm':
       return {
-        input: [entry, ...componentsEntry, ...hooksEntry],
+        input: [entry, ...componentsEntry, ...hooksEntry, ...utilsEntry],
         preserveModules: true,
         output: { ...esOutput, dir: 'es/', format: 'es' },
         external,
@@ -115,7 +119,7 @@ export default () => {
       };
     case 'cjs':
       return {
-        input: [entry, ...componentsEntry, ...hooksEntry],
+        input: [entry, ...componentsEntry, ...hooksEntry, ...utilsEntry],
         preserveModules: true,
         output: { ...esOutput, dir: 'lib/', format: 'cjs' },
         external,

@@ -175,16 +175,21 @@ export default function Drag(props: {
 
   useEffect(() => {
     const $ref = handlerRef.current;
-    const $dragBox = dragPositionHandler && dragBoxRef.current?.querySelector<HTMLElement>(dragPositionHandler) || dragBoxRef.current;
+    const $dragBox =
+      (dragPositionHandler &&
+        dragBoxRef.current?.querySelector<HTMLElement>(dragPositionHandler)) ||
+      dragBoxRef.current;
     const positionDValue = positionDValueRef.current;
     if ($ref && $ref.length && !isNaN(mouseEvent.clientY) && !isNaN(mouseEvent.clientX)) {
       const isAbsolute = positionTypeRef.current === 'absolute';
       const parentEl = parentRef.current;
+      const parentIsDocument = parentEl === document.documentElement;
       let _top = mouseEvent.clientY - positionDValue.top;
       let _left = mouseEvent.clientX - positionDValue.left;
 
       if (isAbsolute) {
-        const { top: parentTop = 0, left: parentLeft = 0 } = parentEl?.getBoundingClientRect() || {}
+        const { top: parentTop = 0, left: parentLeft = 0 } = (!parentIsDocument &&
+          parentEl?.getBoundingClientRect()) || { top: 0, left: 0 };
         const scrollTop = parentEl?.scrollTop || 0;
         const scrollLeft = parentEl?.scrollLeft || 0;
         _top = _top + scrollTop - parentTop;
@@ -192,19 +197,23 @@ export default function Drag(props: {
       }
 
       if (!allowOutBound) {
-        const clientHeight = isAbsolute && parentEl?.offsetHeight || document.documentElement.clientHeight;
-        const clientWidth = isAbsolute && parentEl?.offsetWidth || document.documentElement.clientWidth;
+        const clientHeight =
+          (isAbsolute && (!parentIsDocument ? parentEl?.offsetHeight : parentEl.scrollHeight)) ||
+          document.documentElement.clientHeight;
+        const clientWidth =
+          (isAbsolute && (!parentIsDocument ? parentEl?.offsetWidth : parentEl.scrollWidth)) ||
+          document.documentElement.clientWidth;
         const minTop = 0;
         let maxTop = clientHeight - toNum($dragBox?.offsetHeight);
         maxTop = maxTop < 0 ? 0 : maxTop;
         const minLeft = 0;
         let maxLeft = clientWidth - toNum($dragBox?.offsetWidth);
         maxLeft = maxLeft < 0 ? 0 : maxLeft;
-        
+
         _top = _top < minTop ? minTop : _top > maxTop ? maxTop : _top;
         _left = _left < minLeft ? minLeft : _left > maxLeft ? maxLeft : _left;
       }
-      
+
       const newPosition = {
         top: _top,
         left: _left,
