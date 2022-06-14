@@ -50,6 +50,11 @@ type IMark = {
   defaultImage?: string;
   disabledDrag?: boolean;
   disabledRectChange?: boolean;
+  renderRichText?: ({
+    onSubmit,
+  }: {
+    onSubmit: (data: { html: string }) => Promise<any>;
+  }) => ReactNode;
   onChangePosition?: (position: {
     top?: number;
     left?: number;
@@ -90,6 +95,7 @@ export default function Mark(props: MarkType) {
     isSelected = false,
     disabledDrag = false,
     disabledRectChange = false,
+    renderRichText,
     onChangeStatus,
     onChangePosition,
     onSave,
@@ -248,6 +254,7 @@ export default function Mark(props: MarkType) {
                 onChangePrev={onChangePrev}
                 onChangeStatus={onChangeStatus}
                 onDel={onDel}
+                renderRichText={renderRichText}
               ></Comment>
             </div>
           )) ||

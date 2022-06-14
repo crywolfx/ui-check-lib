@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { ReactNode, useCallback, useMemo, useRef } from 'react';
 import { Button, Spin, Dropdown, Menu, Popconfirm } from 'antd';
 import { EllipsisOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import type { MissionItem } from '@/constant';
@@ -36,6 +36,11 @@ type CommentType = MissionComment & {
   defaultImage?: string;
   disabledPrev?: boolean;
   disabledNext?: boolean;
+  renderRichText?: ({
+    onSubmit,
+  }: {
+    onSubmit: (data: { html: string }) => Promise<any>;
+  }) => ReactNode;
   onChangeStatus?: (missionId: number, status: MissionStatusEnum) => Promise<any>;
   onSubmit: (data: { html: string; missionId?: number }) => Promise<any>;
   onChangeNext?: (missionId: number | undefined) => void;
@@ -126,6 +131,7 @@ export default function Comment(props: CommentType) {
     defaultImage,
     disabledPrev = false,
     disabledNext = false,
+    renderRichText,
     onChangeStatus,
     onChangeNext,
     onChangePrev,
@@ -216,7 +222,7 @@ export default function Comment(props: CommentType) {
           </div>
         )) ||
           null}
-        {/* <RichText /> */}
+        {renderRichText?.({ onSubmit: ({ html }) => handleSubmit(html) })}
       </Spin>
     </div>
   );
