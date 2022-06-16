@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useMemo, useRef } from 'react';
+import React, { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button, Spin, Dropdown, Menu, Popconfirm } from 'antd';
 import { EllipsisOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import type { MissionItem } from '@/constant';
@@ -36,13 +36,14 @@ type CommentType = MissionComment & {
   defaultImage?: string;
   disabledPrev?: boolean;
   disabledNext?: boolean;
+  loading?: boolean;
   renderRichText?: ({
     onSubmit,
   }: {
-    onSubmit: (data: { html: string }) => Promise<any>;
+    onSubmit: (data: { html: string; mentions: string[] }) => Promise<any>;
   }) => ReactNode;
   onChangeStatus?: (missionId: number, status: MissionStatusEnum) => Promise<any>;
-  onSubmit: (data: { html: string; missionId?: number }) => Promise<any>;
+  onSubmit: (data: { html: string; mentions: string[], missionId?: number }) => Promise<any>;
   onChangeNext?: (missionId: number | undefined) => void;
   onChangePrev?: (missionId: number | undefined) => void;
   onDel?: OnDel;
@@ -131,6 +132,7 @@ export default function Comment(props: CommentType) {
     defaultImage,
     disabledPrev = false,
     disabledNext = false,
+    loading = false,
     renderRichText,
     onChangeStatus,
     onChangeNext,
@@ -138,12 +140,16 @@ export default function Comment(props: CommentType) {
     onSubmit,
     onDel,
   } = props;
-  const [isSubmit, setIsSubmit] = useSafeState(false);
+  const [isSubmiting, setIsSubmit] = useSafeState(false);
+  useEffect(() => {
+    setIsSubmit(loading);
+  }, [loading, setIsSubmit]);
+
   const handleSubmit = useCallback(
-    (html: string) => {
+    (data: { html: string, mentions: string[] }) => {
       if (isFunction(onSubmit)) {
         setIsSubmit(true);
-        return onSubmit?.({ html, missionId }).finally(() => {
+        return onSubmit?.({ ...data, missionId }).finally(() => {
           setIsSubmit(false);
         });
       } else {
@@ -179,7 +185,7 @@ export default function Comment(props: CommentType) {
 
   return (
     <div className="mark-comment">
-      <Spin spinning={isSubmit} className="mark-comment-loading">
+      <Spin spinning={isSubmiting} className="mark-comment-loading">
         {(content && (
           <div className="mark-comment__info">
             <div className="mark-comment__info-header flex f-fd-r f-ai-c f-jc-sb">
@@ -222,7 +228,7 @@ export default function Comment(props: CommentType) {
           </div>
         )) ||
           null}
-        {renderRichText?.({ onSubmit: ({ html }) => handleSubmit(html) })}
+        {renderRichText?.({ onSubmit: (data) => handleSubmit(data) })}
       </Spin>
     </div>
   );

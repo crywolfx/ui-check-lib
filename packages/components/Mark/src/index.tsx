@@ -50,10 +50,11 @@ type IMark = {
   defaultImage?: string;
   disabledDrag?: boolean;
   disabledRectChange?: boolean;
+  loading?: boolean;
   renderRichText?: ({
     onSubmit,
   }: {
-    onSubmit: (data: { html: string }) => Promise<any>;
+    onSubmit: (data: { html: string, mentions: string[] }) => Promise<any>;
   }) => ReactNode;
   onChangePosition?: (position: {
     top?: number;
@@ -64,7 +65,7 @@ type IMark = {
     height?: number;
   }) => void;
   onChangeStatus?: (missionId: number, status: MissionStatus) => Promise<any>;
-  onSave: (data: { html: string; missionId?: number }) => Promise<any>;
+  onSave: (data: { html: string; mentions: string[]; missionId?: number }) => Promise<any>;
   onClickLabel?: (missionId?: number) => void;
   onChangeNext?: (missionId: number | undefined) => void;
   onChangePrev?: (missionId: number | undefined) => void;
@@ -95,6 +96,7 @@ export default function Mark(props: MarkType) {
     isSelected = false,
     disabledDrag = false,
     disabledRectChange = false,
+    loading = false,
     renderRichText,
     onChangeStatus,
     onChangePosition,
@@ -248,8 +250,9 @@ export default function Mark(props: MarkType) {
                 userName={userName}
                 createdTime={createdTime}
                 updatedTime={updatedTime}
-                onSubmit={onSave}
+                loading={loading}
                 defaultImage={defaultImage}
+                onSubmit={onSave}
                 onChangeNext={onChangeNext}
                 onChangePrev={onChangePrev}
                 onChangeStatus={onChangeStatus}
