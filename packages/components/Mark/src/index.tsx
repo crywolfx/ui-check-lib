@@ -4,7 +4,7 @@ import type { OnDel } from '@/components/Comment';
 import Comment from '@/components/Comment';
 import { useScroll, useResize } from '@/hooks';
 import Drag from '@/components/Drag';
-import { MissionStatus } from '@/constant';
+import { IMissionStatus as MissionStatus } from '@/constant';
 import type { MissionItem } from '@/constant';
 import ResizeRect from '@/components/ResizeRect';
 import { getAbsolutePosition, hasPositionedParent, hasHiddenedParant } from '@/utils/dom';

@@ -5,7 +5,7 @@ import type { MissionItem } from '@/constant';
 import MissionStatus from '@/components/MissionStatus/src';
 import RichTextPreview from '@/components/RichTextPreview';
 import User from '@/components/User';
-import { MissionStatus as MissionStatusEnum } from '@/constant';
+import { IMissionStatus as MissionStatusEnum } from '@/constant';
 import { isFunction } from '@/utils/type';
 import { useSafeState } from 'ahooks';
 import './index.less'

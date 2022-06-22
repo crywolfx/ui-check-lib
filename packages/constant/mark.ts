@@ -1,4 +1,4 @@
-export enum MissionStatus {
+export enum IMissionStatus {
   ALL = -1, // 请求传空
   UNRESOLVED,
   RESOLVED,
@@ -21,7 +21,7 @@ export type MissionItem = {
   content: string;
   location: string;
   fullPath: string;
-  status: MissionStatus;
+  status: IMissionStatus;
   createdTime: number;
   updatedTime: number;
   initiator: number; // 用户id
@@ -30,19 +30,19 @@ export type MissionItem = {
   comment: Comment[];
 };
 
-export const MISSION_STATUS_MAP: Record<MissionStatus, string> = {
-  [MissionStatus.ALL]: '全部',
-  [MissionStatus.UNRESOLVED]: '未解决',
-  [MissionStatus.RESOLVED]: '已解决',
-  [MissionStatus.VERIFIED]: '已验证',
-  [MissionStatus.CLOSED]: '无需解决',
+export const MISSION_STATUS_MAP: Record<IMissionStatus, string> = {
+  [IMissionStatus.ALL]: '全部',
+  [IMissionStatus.UNRESOLVED]: '未解决',
+  [IMissionStatus.RESOLVED]: '已解决',
+  [IMissionStatus.VERIFIED]: '已验证',
+  [IMissionStatus.CLOSED]: '无需解决',
 };
 
 // 保证顺序
-export const MISSION_STATUS_LIST: MissionStatus[] = [
-  MissionStatus.ALL,
-  MissionStatus.UNRESOLVED,
-  MissionStatus.RESOLVED,
-  MissionStatus.VERIFIED,
-  MissionStatus.CLOSED,
+export const MISSION_STATUS_LIST: IMissionStatus[] = [
+  IMissionStatus.ALL,
+  IMissionStatus.UNRESOLVED,
+  IMissionStatus.RESOLVED,
+  IMissionStatus.VERIFIED,
+  IMissionStatus.CLOSED,
 ];

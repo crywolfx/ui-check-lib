@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select } from 'antd';
-import { MissionStatus as IMissionStatus, MISSION_STATUS_MAP } from '@/constant';
+import { IMissionStatus, MISSION_STATUS_MAP } from '@/constant';
 import './index.less';
 
 const { Option } = Select;
